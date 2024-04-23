@@ -2,11 +2,12 @@ import { useParams } from "react-router-dom";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import TabelCuti from "../../components/tabelCuti/TabelCuti";
 const Kontrak = () => {
   const { userId, kontrakId } = useParams();
   const [loading, setLoading] = useState(false);
   const [kontrak, setKontrak] = useState([]);
-
+  const [cuti, setCuti] = useState([]);
   useEffect(() => {
     const fetchKontrak = async () => {
       setLoading(true);
@@ -14,16 +15,26 @@ const Kontrak = () => {
         const res = await axios.get(
           `http://localhost:8080/api/kontrak/${userId}/${kontrakId}`,
         );
-        console.log(res.data);
         setKontrak(res.data);
       } catch (error) {
-        console.log([userId, kontrakId]);
         console.log(error);
       }
       setLoading(false);
     };
+
+    const fetchCuti = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8080/api/kontrak/${kontrak._id}/cuti`,
+        );
+        setCuti(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchKontrak();
-  }, [kontrakId, userId]);
+    fetchCuti();
+  }, [kontrakId, userId, kontrak._id]);
 
   return (
     <div className="flex w-screen min-h-screen">
@@ -109,6 +120,7 @@ const Kontrak = () => {
               </div>
             </div>
           </div>
+          <TabelCuti cuti={cuti} />
         </div>
       </div>
     </div>
