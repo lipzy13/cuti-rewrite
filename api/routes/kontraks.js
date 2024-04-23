@@ -3,6 +3,7 @@ import {
   createKontrak,
   deleteKontrak,
   editKontrak,
+  getCutiByKontrak,
   getKontrak,
   getKontrakByUser,
   getKontrakByUserId,
@@ -12,6 +13,8 @@ import { verifyAdmin, verifyToken, verifyUser } from "../utils/verifyToken.js";
 const router = express.Router();
 
 router.post("/", verifyAdmin, createKontrak);
+
+router.get("/:kontrakId/cuti", getCutiByKontrak);
 
 router.put("/:id", verifyUser, editKontrak);
 

@@ -55,20 +55,6 @@ export const getCuti = async (req, res, next) => {
   }
 };
 
-export const getCutiByKontrak = async (req, res, next) => {
-  try {
-    const kontrak = await Kontrak.findById(req.params.kontrakId);
-    const cutiList = await Promise.all(
-      kontrak.cuti.map((cut) => {
-        return Cuti.findById(cut);
-      }),
-    );
-    res.status(200).json(cutiList);
-  } catch (error) {
-    next(error);
-  }
-};
-
 export const getAllCuti = async (req, res, next) => {
   try {
     const cuti = await Cuti.find();

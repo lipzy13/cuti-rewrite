@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Kontrak from "../models/Kontrak.js";
+import Cuti from "../models/Cuti.js";
 
 export const createKontrak = async (req, res, next) => {
   const newKontrak = new Kontrak(req.body);
@@ -76,6 +77,20 @@ export const getKontrakByUserId = async (req, res, next) => {
       }),
     );
     res.status(200).json(kontrakList);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getCutiByKontrak = async (req, res, next) => {
+  try {
+    const kontrak = await Kontrak.findById(req.params.kontrakId);
+    const cutiList = await Promise.all(
+      kontrak.cuti.map((cut) => {
+        return Cuti.findById(cut);
+      }),
+    );
+    res.status(200).json(cutiList);
   } catch (error) {
     next(error);
   }
