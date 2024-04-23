@@ -50,7 +50,12 @@ export const deleteKontrak = async (req, res, next) => {
 export const getKontrak = async (req, res, next) => {
   try {
     const kontrak = await Kontrak.findById(req.params.id);
-    res.status(200).json(kontrak);
+    const cutiList = await Promise.all(
+      kontrak.cuti.map((cut) => {
+        return Cuti.findById(cut);
+      }),
+    );
+    res.status(200).json({ ...kontrak._doc, cutiList });
   } catch (error) {
     next(error);
   }

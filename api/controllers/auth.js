@@ -58,7 +58,8 @@ export const changePassword = async (req, res, next) => {
       req.body.passwordLama,
       user.password,
     );
-    if (!ifPasswordCorrect) return next(createError(400, "Wrong Password"));
+    if (!ifPasswordCorrect)
+      return next(createError(400, "Password Lama Salah"));
     try {
       const updatedPass = await User.findByIdAndUpdate(
         user._id,
