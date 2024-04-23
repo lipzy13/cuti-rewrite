@@ -49,3 +49,31 @@ export const login = async (req, res, next) => {
     next(error);
   }
 };
+
+export const changePassword = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    // Checking user password
+    const ifPasswordCorrect = await bcrypt.compare(
+      req.body.passwordLama,
+      user.password,
+    );
+    if (!ifPasswordCorrect) return next(createError(400, "Wrong Password"));
+    try {
+      const updatedPass = await User.findByIdAndUpdate(
+        user._id,
+        {
+          $set: {
+            password: bcrypt.hashSync(req.body.passwordBaru, 10),
+          },
+        },
+        { new: true },
+      );
+      res.status(200).json("Password Changed");
+    } catch (error) {
+      next(error);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
