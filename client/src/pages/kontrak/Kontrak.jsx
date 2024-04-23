@@ -32,8 +32,7 @@ const Kontrak = () => {
         console.log(error);
       }
     };
-    fetchKontrak();
-    fetchCuti();
+    Promise.all([fetchKontrak(), fetchCuti()]);
   }, [kontrakId, userId, kontrak._id]);
 
   return (

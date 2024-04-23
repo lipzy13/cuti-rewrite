@@ -1,9 +1,31 @@
 import { useContext } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { AuthContext } from "../../context/authContext";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Profil = () => {
   const { user } = useContext(AuthContext);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const navigate = useNavigate();
+
+  const onSubmit = async (e) => {
+    try {
+      const res = await axios.post(
+        `http://localhost:8080/api/auth/changepass/${user._id}`,
+        e,
+      );
+      alert("Password berhasil diubah");
+      navigate(0);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  };
   return (
     <div className="flex w-screen min-h-screen">
       <Sidebar />
@@ -12,7 +34,7 @@ const Profil = () => {
           <div className="text-center my-8">
             <h1 className="font-bold text-2xl">Profil</h1>
           </div>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid sm:grid-cols-12 gap-2 sm:gap-6">
               <div className="sm:col-span-3">
                 <label
@@ -106,25 +128,70 @@ const Profil = () => {
                   Password
                 </label>
               </div>
-
               <div className="sm:col-span-9">
                 <div className="space-y-2">
-                  <input
-                    id="passwordLama"
-                    name="passwordLama"
-                    type="password"
-                    className="py-2 border px-3 pe-11 block w-full {{$errors->has('old_password') ? 'border-red-500' : 'border-gray-200' }}  shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                    placeholder="Masukkan password lama"
-                    aria-describedby="passwordLama"
-                  ></input>
-                  <input
-                    id="passwordBaru"
-                    name="passwordBaru"
-                    type="password"
-                    className="py-2 border px-3 pe-11 block w-full {{$errors->has('old_password') ? 'border-red-500' : 'border-gray-200' }}  shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                    placeholder="Masukkan password baru"
-                    aria-describedby="passwordBaru"
-                  ></input>
+                  <div className="relative">
+                    <input
+                      id="passwordLama"
+                      name="passwordLama"
+                      type="password"
+                      className={`py-2 border ${errors.passwordLama && "border-red-500"} px-3 pe-11 block w-full shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none`}
+                      placeholder="Masukkan password lama"
+                      aria-describedby="passwordLama"
+                      {...register("passwordLama", { required: true })}
+                    ></input>
+                    {errors.passwordLama && (
+                      <div className="absolute inset-y-0 end-0 flex items-center pointer-events-none pe-3">
+                        <svg
+                          className="flex-shrink-0 size-4 text-red-500"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <line x1="12" x2="12" y1="8" y2="12"></line>
+                          <line x1="12" x2="12.01" y1="16" y2="16"></line>
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                  <div className="relative">
+                    <input
+                      id="passwordBaru"
+                      name="passwordBaru"
+                      type="password"
+                      className={`py-2 border ${errors.passwordBaru && "border-red-500"} px-3 pe-11 block w-full shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none`}
+                      placeholder="Masukkan password baru"
+                      aria-describedby="passwordBaru"
+                      {...register("passwordBaru", { required: true })}
+                    ></input>
+                    {errors.passwordBaru && (
+                      <div className="absolute inset-y-0 end-0 flex items-center pointer-events-none pe-3">
+                        <svg
+                          className="flex-shrink-0 size-4 text-red-500"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <line x1="12" x2="12" y1="8" y2="12"></line>
+                          <line x1="12" x2="12.01" y1="16" y2="16"></line>
+                        </svg>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
