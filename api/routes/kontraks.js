@@ -1,12 +1,11 @@
 import express from "express";
 import {
-  createKontrak,
-  deleteKontrak,
-  editKontrak,
-  getCutiByKontrak,
-  getKontrak,
-  getKontrakByUser,
-  getKontrakByUserId,
+	createKontrak,
+	deleteKontrak,
+	editKontrak,
+	getCutiByKontrak,
+	getKontrak,
+	getKontrakByUser,
 } from "../controllers/kontrak.js";
 import { verifyAdmin, verifyToken, verifyUser } from "../utils/verifyToken.js";
 
@@ -21,8 +20,6 @@ router.put("/:id", verifyUser, editKontrak);
 router.delete("/:id", verifyAdmin, deleteKontrak);
 
 router.get("/:id", getKontrak);
-
-router.get("/user/:userId", getKontrakByUserId);
 
 router.get("/:userId/:kontrakId", getKontrakByUser);
 

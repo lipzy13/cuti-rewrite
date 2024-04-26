@@ -1,10 +1,11 @@
 import express from "express";
 import {
-  createUser,
-  deleteUser,
-  editUser,
-  getUser,
-  getUsers,
+	createUser,
+	deleteUser,
+	editUser,
+	getUser,
+	getUserKontraks,
+	getUsers,
 } from "../controllers/user.js";
 import { verifyAdmin, verifyToken, verifyUser } from "../utils/verifyToken.js";
 
@@ -19,5 +20,7 @@ router.delete("/:id", verifyAdmin, deleteUser);
 router.get("/:id", verifyUser, getUser);
 
 router.get("/", verifyAdmin, getUsers);
+
+router.get("/:id/kontrak", verifyUser, getUserKontraks);
 
 export default router;
