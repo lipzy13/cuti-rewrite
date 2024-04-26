@@ -11,6 +11,7 @@
 	},
 	"dependencies": {
 		"@preline/overlay": "^2.1.0",
+		"@preline/tooltip": "^2.1.0",
 		"axios": "^1.6.8",
 		"chart.js": "^4.4.2",
 		"preline": "^2.1.0",
