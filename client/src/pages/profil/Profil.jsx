@@ -193,48 +193,37 @@ const Profil = () => {
 											})}
 										></input>
 										{errors.passwordBaru && (
-											<div className="absolute inset-y-0 end-0 flex items-center pointer-events-none pe-3 hs-tooltip">
-												<button
-													type="button"
-													className="hs-tooltip-toggle"
+											<div className="absolute inset-y-0 end-0 flex items-center pointer-events-none pe-3">
+												<svg
+													className="flex-shrink-0 size-4 text-red-500"
+													xmlns="http://www.w3.org/2000/svg"
+													width="24"
+													height="24"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													strokeWidth="2"
+													strokeLinecap="round"
+													strokeLinejoin="round"
 												>
-													<svg
-														className="flex-shrink-0 size-4 text-red-500"
-														xmlns="http://www.w3.org/2000/svg"
-														width="24"
-														height="24"
-														viewBox="0 0 24 24"
-														fill="none"
-														stroke="currentColor"
-														strokeWidth="2"
-														strokeLinecap="round"
-														strokeLinejoin="round"
-													>
-														<circle
-															cx="12"
-															cy="12"
-															r="10"
-														></circle>
-														<line
-															x1="12"
-															x2="12"
-															y1="8"
-															y2="12"
-														></line>
-														<line
-															x1="12"
-															x2="12.01"
-															y1="16"
-															y2="16"
-														></line>
-													</svg>
-													<span
-														className="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-white"
-														role="tooltip"
-													>
-														Tooltip on top
-													</span>
-												</button>
+													<circle
+														cx="12"
+														cy="12"
+														r="10"
+													></circle>
+													<line
+														x1="12"
+														x2="12"
+														y1="8"
+														y2="12"
+													></line>
+													<line
+														x1="12"
+														x2="12.01"
+														y1="16"
+														y2="16"
+													></line>
+												</svg>
 											</div>
 										)}
 									</div>
