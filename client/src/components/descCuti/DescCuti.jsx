@@ -1,9 +1,23 @@
-const DescCuti = () => {
+const DescCuti = ({ kontrak }) => {
 	return (
 		<div>
 			<div className="font-extralight my-5">
-				<p>Tanggal mulai kontrak : 1 Januari 1900</p>
-				<p>Tanggal selesai kontrak :1 Januari 1900</p>
+				<p>
+					Tanggal mulai kontrak :{" "}
+					{new Date(kontrak.tanggalMulai).toLocaleDateString("id-Id", {
+						year: "numeric",
+						month: "long",
+						day: "numeric",
+					})}
+				</p>
+				<p>
+					Tanggal selesai kontrak :
+					{new Date(kontrak.tanggalSelesai).toLocaleDateString("id-Id", {
+						year: "numeric",
+						month: "long",
+						day: "numeric",
+					})}
+				</p>
 			</div>
 			<p className="mt-6 mb-2">Riwayat</p>
 			<div className="ms-4 font-extralight">
@@ -15,10 +29,11 @@ const DescCuti = () => {
 			</div>
 			<div className="mt-9 font-extralight">
 				<p>
-					Cuti Terpakai <span className="mx-3">:</span> 0 Hari{" "}
+					Cuti Terpakai <span className="mx-3">:</span> {kontrak.cuti?.length}{" "}
+					Hari
 				</p>
 				<p>
-					Cuti Tersedia <span className="mx-3">:</span> 0 Hari{" "}
+					Cuti Tersedia <span className="mx-3">:</span> {kontrak.sisaCuti} Hari{" "}
 				</p>
 			</div>
 		</div>

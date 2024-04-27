@@ -21,6 +21,6 @@ router.get("/:id", verifyUser, getUser);
 
 router.get("/", verifyAdmin, getUsers);
 
-router.get("/:id/kontrak", verifyUser, getUserKontraks);
+router.get("/:id/kontrak", getUserKontraks);
 
 export default router;
