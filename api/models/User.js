@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+const { Schema } = mongoose;
 const userSchema = new mongoose.Schema(
 	{
 		nama: {
@@ -27,7 +28,7 @@ const userSchema = new mongoose.Schema(
 			required: true,
 		},
 		kontrak: {
-			type: [String],
+			type: [{ type: Schema.Types.ObjectId, ref: "Kontrak" }],
 		},
 	},
 	{ timestamps: true }

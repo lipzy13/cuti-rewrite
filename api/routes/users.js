@@ -5,7 +5,7 @@ import {
 	editUser,
 	getUser,
 	getUserKontraks,
-	getUsers,
+	getAllUser,
 } from "../controllers/user.js";
 import { verifyAdmin, verifyToken, verifyUser } from "../utils/verifyToken.js";
 
@@ -19,7 +19,7 @@ router.delete("/:id", verifyAdmin, deleteUser);
 
 router.get("/:id", verifyUser, getUser);
 
-router.get("/", verifyAdmin, getUsers);
+router.get("/", verifyAdmin, getAllUser);
 
 router.get("/:id/kontrak", getUserKontraks);
 

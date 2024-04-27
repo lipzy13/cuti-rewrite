@@ -1,19 +1,19 @@
 import express from "express";
 import {
-  createCuti,
-  deleteCuti,
-  editCuti,
-  getAllCuti,
-  getCuti,
+	createCuti,
+	deleteCuti,
+	editCuti,
+	getAllCuti,
+	getCuti,
 } from "../controllers/cuti.js";
 
 const router = express.Router();
 
-router.post("/", createCuti);
+router.post("/:kontrakId", createCuti);
 
 router.put("/:id", editCuti);
 
-router.delete("/:id", deleteCuti);
+router.delete("/:kontrakId/:cutiId", deleteCuti);
 
 router.get("/:id", getCuti);
 

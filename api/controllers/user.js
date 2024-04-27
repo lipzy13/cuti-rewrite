@@ -1,5 +1,4 @@
 import User from "../models/User.js";
-import Kontrak from "../models/Kontrak.js";
 
 export const createUser = async (req, res, next) => {
 	const newUser = new User(req.body);
@@ -37,14 +36,14 @@ export const deleteUser = async (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
 	try {
-		const user = await User.findById(req.params.id);
+		const user = await User.findById(req.params.id).populate("kontrak");
 		res.status(200).json(user);
 	} catch (error) {
 		next(error);
 	}
 };
 
-export const getUsers = async (req, res, next) => {
+export const getAllUser = async (req, res, next) => {
 	try {
 		const users = await User.find();
 		res.status(200).json(users);
@@ -55,13 +54,8 @@ export const getUsers = async (req, res, next) => {
 
 export const getUserKontraks = async (req, res, next) => {
 	try {
-		const user = await User.findById(req.params.id);
-		const kontrakList = await Promise.all(
-			user.kontrak.map((kont) => {
-				return Kontrak.findById(kont);
-			})
-		);
-		res.status(200).json(kontrakList);
+		const user = await User.findById(req.params.id).populate("kontrak");
+		res.status(200).json(user.kontrak);
 	} catch (error) {
 		next(error);
 	}

@@ -1,13 +1,12 @@
 import User from "../models/User.js";
 import Kontrak from "../models/Kontrak.js";
-import Cuti from "../models/Cuti.js";
 
 export const createKontrak = async (req, res, next) => {
 	const newKontrak = new Kontrak(req.body);
 	try {
 		const savedKontrak = await newKontrak.save();
 		try {
-			await User.findByIdAndUpdate(req.body.userId, {
+			await User.findByIdAndUpdate(req.params.userId, {
 				$push: { kontrak: savedKontrak._id },
 			});
 		} catch (error) {
@@ -36,11 +35,11 @@ export const editKontrak = async (req, res, next) => {
 
 export const deleteKontrak = async (req, res, next) => {
 	try {
-		const { userId } = await Kontrak.findById(req.params.id);
-		await User.findByIdAndUpdate(userId, {
-			$pull: { kontrak: req.params.id },
+		// should create conditional if no kontrak found
+		await User.findByIdAndUpdate(req.params.userId, {
+			$pull: { kontrak: req.params.kontrakId },
 		});
-		await Kontrak.findByIdAndDelete(req.params.id);
+		await Kontrak.findByIdAndDelete(req.params.kontrakId);
 		res.status(200).json("Kontrak Deleted");
 	} catch (error) {
 		next(error);
@@ -49,24 +48,7 @@ export const deleteKontrak = async (req, res, next) => {
 
 export const getKontrak = async (req, res, next) => {
 	try {
-		const kontrak = await Kontrak.findById(req.params.id);
-		const cutiList = await Promise.all(
-			kontrak.cuti.map((cut) => {
-				return Cuti.findById(cut);
-			})
-		);
-		res.status(200).json({ ...kontrak._doc, cutiList });
-	} catch (error) {
-		next(error);
-	}
-};
-
-export const getKontrakByUser = async (req, res, next) => {
-	try {
-		const kontrak = await Kontrak.findOne({
-			_id: req.params.kontrakId,
-			userId: req.params.userId,
-		});
+		const kontrak = await Kontrak.findById(req.params.id).populate("cuti");
 		res.status(200).json(kontrak);
 	} catch (error) {
 		next(error);
@@ -75,13 +57,10 @@ export const getKontrakByUser = async (req, res, next) => {
 
 export const getCutiByKontrak = async (req, res, next) => {
 	try {
-		const kontrak = await Kontrak.findById(req.params.kontrakId);
-		const cutiList = await Promise.all(
-			kontrak.cuti.map((cut) => {
-				return Cuti.findById(cut);
-			})
+		const kontrak = await Kontrak.findById(req.params.kontrakId).populate(
+			"cuti"
 		);
-		res.status(200).json(cutiList);
+		res.status(200).json(kontrak);
 	} catch (error) {
 		next(error);
 	}
