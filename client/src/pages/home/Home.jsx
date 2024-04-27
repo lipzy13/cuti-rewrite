@@ -9,7 +9,6 @@ import axios from "axios";
 const Home = () => {
 	const { user } = useContext(AuthContext);
 	const [kontrak, setKontrak] = useState([]);
-
 	useEffect(() => {
 		const fetchKontrak = async () => {
 			try {

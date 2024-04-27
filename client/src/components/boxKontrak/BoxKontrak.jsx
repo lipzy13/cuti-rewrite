@@ -51,7 +51,7 @@ const BoxKontrak = ({ kontrak }) => {
 														<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 "></td>
 														<td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
 															<Link
-																to={`/${user._id}/${k._id}`}
+																to={`/${k._id}`}
 																className="text-xl font-bold text-blue-600"
 															>
 																<MdInfoOutline />
