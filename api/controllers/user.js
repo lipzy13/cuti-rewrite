@@ -54,7 +54,10 @@ export const getAllUser = async (req, res, next) => {
 
 export const getUserKontraks = async (req, res, next) => {
 	try {
-		const user = await User.findById(req.params.id).populate("kontrak");
+		const user = await User.findById(req.params.id).populate({
+			path: "kontrak",
+			populate: { path: "cuti" },
+		});
 		res.status(200).json(user.kontrak);
 	} catch (error) {
 		next(error);
