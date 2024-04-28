@@ -1,5 +1,4 @@
 const DescCuti = ({ kontrak }) => {
-	console.log(kontrak.cuti);
 	return (
 		<div>
 			<div className="font-extralight my-5">
