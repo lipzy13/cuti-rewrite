@@ -22,9 +22,19 @@ const DescCuti = ({ kontrak }) => {
 			<p className="mt-6 mb-2">Riwayat</p>
 			<div className="ms-4 font-extralight">
 				<ul className="list-disc">
-					<li>1 Januari 1900</li>
-					<li>1 Januari 1900</li>
-					<li>1 Januari 1900</li>
+					{kontrak.cuti.length > 0 ? (
+						kontrak.cuti.map((value) => (
+							<li key={value}>
+								{new Date(value.tanggal).toLocaleDateString("id-Id", {
+									year: "numeric",
+									month: "long",
+									day: "numeric",
+								})}
+							</li>
+						))
+					) : (
+						<li>Tidak ada cuti</li>
+					)}
 				</ul>
 			</div>
 			<div className="mt-9 font-extralight">
