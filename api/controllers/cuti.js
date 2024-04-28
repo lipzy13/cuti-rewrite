@@ -8,6 +8,7 @@ export const createCuti = async (req, res, next) => {
 		try {
 			await Kontrak.findByIdAndUpdate(req.params.kontrakId, {
 				$push: { cuti: savedCuti._id },
+				$inc: { sisaCuti: -1 * req.body.tanggal.length },
 			});
 		} catch (error) {
 			next(error);
@@ -34,9 +35,11 @@ export const editCuti = async (req, res, next) => {
 };
 
 export const deleteCuti = async (req, res, next) => {
+	const cuti = await Cuti.findById(req.params.cutiId);
 	try {
-		await Kontrak.findByIdAndUpdate(kontrakId, {
-			$pull: { cuti: req.params.cutiId },
+		await Kontrak.findByIdAndUpdate(req.params.kontrakId, {
+			$pull: { cuti: cuti._id },
+			$inc: { sisaCuti: cuti.tanggal.length },
 		});
 		await Cuti.findByIdAndDelete(req.params.cutiId);
 		res.status(200).json("Cuti Deleted");

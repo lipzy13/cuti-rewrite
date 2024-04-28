@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom";
 import { MdInfoOutline } from "react-icons/md";
-import { useContext } from "react";
-import { AuthContext } from "../../context/authContext";
 
 const BoxKontrak = ({ kontrak }) => {
-	const { user } = useContext(AuthContext);
 	return (
 		<div className="bg-white p-4 rounded-md col-start-1 col-end-5 shadow-xl my-4">
 			<div className="items-center justify-center w-full">
