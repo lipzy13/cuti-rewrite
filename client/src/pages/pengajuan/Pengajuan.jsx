@@ -30,7 +30,7 @@ const Pengajuan = () => {
 					<div className="my-5 mx-10 grid grid-cols-2">
 						<div>
 							<h1 className="font-bold text-5xl mb-3">Pengajuan Cuti</h1>
-							<DescCuti kontrak={kontrak} />
+							{kontrak.cuti && <DescCuti kontrak={kontrak} />}
 						</div>
 						<div>
 							<FormCuti />
