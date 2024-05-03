@@ -39,29 +39,40 @@ const TabelCuti = ({ cuti }) => {
 											</tr>
 										</thead>
 										<tbody className="divide-y divide-gray-200 ">
-											{cuti.map((cut, index) => (
-												<tr key={cut._id}>
+											{cuti.length ? (
+												cuti.map((cut, index) => (
+													<tr key={cut._id}>
+														<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">
+															{index + 1}
+														</td>
+														<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">
+															<ul>
+																{cut.tanggal.map((el) => (
+																	<li key={el}>
+																		{new Date(el).toLocaleDateString("id-Id", {
+																			year: "numeric",
+																			month: "long",
+																			day: "numeric",
+																		})}
+																	</li>
+																))}
+															</ul>
+														</td>
+														<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">
+															{cut.jenis}
+														</td>
+													</tr>
+												))
+											) : (
+												<tr>
+													<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 "></td>
 													<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">
-														{index + 1}
+														Cuti tidak ada
 													</td>
-													<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">
-														<ul>
-															{cut.tanggal.map((el) => (
-																<li key={el}>
-																	{new Date(el).toLocaleDateString("id-Id", {
-																		year: "numeric",
-																		month: "long",
-																		day: "numeric",
-																	})}
-																</li>
-															))}
-														</ul>
-													</td>
-													<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">
-														{cut.jenis}
-													</td>
+													<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 "></td>
+													<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 "></td>
 												</tr>
-											))}
+											)}
 										</tbody>
 									</table>
 								</div>
