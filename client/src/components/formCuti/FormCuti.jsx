@@ -51,6 +51,18 @@ const FormCuti = ({ kontrak }) => {
         py-3 px-4 block w-full border-gray-200 shadow-sm rounded-s-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border"
 								{...register(`tanggal[${index}]`, {
 									required: "Masukkan tanggal",
+									min: {
+										value: new Date(kontrak.tanggalMulai)
+											.toISOString()
+											.split("T")[0],
+										message: "Tanggal diluar kontrak",
+									},
+									max: {
+										value: new Date(kontrak.tanggalSelesai)
+											.toISOString()
+											.split("T")[0],
+										message: "Tanggal diluar kontrak",
+									},
 								})}
 							></input>
 							<button
