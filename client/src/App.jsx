@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Pengajuan from "./pages/pengajuan/Pengajuan";
 import Profil from "./pages/profil/Profil";
 import Kontrak from "./pages/kontrak/Kontrak";
+import Checkout from "./pages/checkout/Checkout";
 
 function App() {
 	return (
@@ -28,6 +29,10 @@ function App() {
 				<Route
 					path="/:kontrakId"
 					element={<Kontrak />}
+				/>
+				<Route
+					path="/checkout"
+					element={<Checkout />}
 				/>
 			</Routes>
 		</BrowserRouter>

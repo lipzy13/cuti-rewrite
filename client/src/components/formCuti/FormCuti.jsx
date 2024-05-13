@@ -1,5 +1,7 @@
 import { useFieldArray, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { CutiContext } from "../../context/cutiContext";
 
 const FormCuti = ({ kontrak }) => {
 	const {
@@ -9,14 +11,20 @@ const FormCuti = ({ kontrak }) => {
 		control,
 		formState: { errors },
 	} = useForm();
-	const onSubmit = (data) => console.log(data);
+	const navigate = useNavigate();
+	const { dispatch } = useContext(CutiContext);
+
+	const onSubmit = (data) => {
+		dispatch({ type: "ADD_CUTI", payload: data });
+		navigate("/checkout");
+	};
 	const { fields, append, remove } = useFieldArray({
 		control,
 		name: "tanggal",
 		defaultValue: [{ tanggal: undefined }],
 	});
 
-	console.log(watch("example"));
+	console.log(watch("tanggal"));
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<label
@@ -82,34 +90,6 @@ const FormCuti = ({ kontrak }) => {
 				>
 					Tambah Tanggal Cuti
 				</button>
-			</div>
-
-			<div>
-				<label
-					htmlFor="file_path"
-					className="text-gray-500 font-medium"
-				>
-					Upload Surat Cuti,
-					<span>
-						<Link
-							to="/docs/surat.docx"
-							className="text-sky-700"
-							download
-							target="_blank"
-						>
-							Download surat
-						</Link>
-					</span>
-				</label>
-				<input
-					type="file"
-					name="file_path"
-					id="file_path"
-					className="
-         mt-2 mb-5 block w-full rounded-md pr-10 text-gray-500 bg-white border border-gray-300
-         file:bg-[#EBEDEF] file:p-1.5 file:border-0 file:text-[#374254]"
-					{...register("suratCuti")}
-				></input>
 			</div>
 			<button
 				type="submit"
