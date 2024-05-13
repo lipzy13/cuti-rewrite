@@ -1,4 +1,5 @@
 import { useFieldArray, useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const FormCuti = ({ kontrak }) => {
 	const {
@@ -90,12 +91,14 @@ const FormCuti = ({ kontrak }) => {
 				>
 					Upload Surat Cuti,
 					<span>
-						<button
-							type="button"
+						<Link
+							to="/docs/surat.docx"
 							className="text-sky-700"
+							download
+							target="_blank"
 						>
 							Download surat
-						</button>
+						</Link>
 					</span>
 				</label>
 				<input
